@@ -1,6 +1,14 @@
 # -*- mode: ruby -*-
 # vim: set ft=ruby :
 
+bootstrap = <<SCRIPT
+  useradd -m jaels --groups wheel -s /bin/bash
+  mkdir /home/jaels/.ssh && chown -R jaels:jaels /home/jaels/
+  curl --silent https://github.com/renderqwerty.keys >> /home/jaels/.ssh/authorized_keys
+  echo "%jaels ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/jaels
+  su -c "printf 'cd /home/jaels\nsudo su jaels\n' >> .bash_profile" -s /bin/sh vagrant
+SCRIPT
+
 MACHINES = {
   :otuslinux => {
         :box_name => "centos/7",
@@ -45,7 +53,7 @@ Vagrant.configure("2") do |config|
           #box.vm.network "forwarded_port", guest: 3260, host: 3260+offset
 
           box.vm.network "private_network", ip: boxconfig[:ip_addr]
-
+          box.vm.synced_folder ".", "/vagrant", mount_options: ["dmode=775,fmode=664"]
           box.vm.provider :virtualbox do |vb|
             	  vb.customize ["modifyvm", :id, "--memory", "1024"]
                   needsController = false
@@ -63,6 +71,7 @@ Vagrant.configure("2") do |config|
                      end
                   end
           end
+          box.vm.provision "shell", inline: "#{bootstrap}", privileged: true
  	  box.vm.provision "shell", inline: <<-SHELL
 	      mkdir -p ~root/.ssh
               cp ~vagrant/.ssh/auth* ~root/.ssh
