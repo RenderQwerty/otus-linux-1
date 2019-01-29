@@ -6,7 +6,7 @@ bootstrap = <<SCRIPT
   mkdir /home/jaels/.ssh && chown -R jaels:jaels /home/jaels/
   curl --silent https://github.com/renderqwerty.keys >> /home/jaels/.ssh/authorized_keys
   echo "%jaels ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/jaels
-  su -c "printf 'cd /home/jaels\nsudo su jaels\n' >> .bash_profile" -s /bin/sh vagrant
+  su -c "printf 'sudo su jaels\n' >> .bash_profile" -s /bin/sh vagrant
 SCRIPT
 
 MACHINES = {
