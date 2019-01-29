@@ -4,3 +4,8 @@ kernel:
   mirror: https://cdn.kernel.org/pub/linux/kernel/v4.x/
   version: linux-4.20.5
   archive_format: tar.xz
+
+package_list:
+  - ncurses-devel
+  - bison
+  - flex

@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Added
 
  1. Установлен плагин `vagrant-vbguest`, который подтянул в зависимостях пакеты `cpp, gcc, glibc-devel, kernel-headers, kernel-devel`
- 2. text
+ 2. Добавлена ansible роль, устанавливающая недостающие пакеты, необходимые для сборки ядра.
 
 ### Changed
 

@@ -1,0 +1,6 @@
+---
+
+- name: install packages required for kernel compilation
+  package:
+    state: present
+    name: "{{ package_list }}"

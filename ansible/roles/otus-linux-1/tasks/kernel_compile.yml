@@ -1,0 +1,6 @@
+---
+
+- name: copy kernel config
+  copy:
+    src: .config
+    dest: "/tmp/{{ kernel.version }}"
