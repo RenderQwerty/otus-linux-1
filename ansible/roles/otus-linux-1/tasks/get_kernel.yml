@@ -1,16 +1,5 @@
 ---
 
-- name: create temp dir
-  file:
-    path: "/tmp/{{ kernel.version }}"
-    state: directory
-
-#- name: download kernel
-#  get_url:
-#    url: "{{ kernel_link }}/{{ kernel_version }}"
-#    dest: /tmp/kernel/
-#    mode: 0755
-
 - name: unpack kernel
   unarchive:
     src: "{{ kernel.mirror }}/{{ kernel.version }}.{{ kernel.archive_format }}"

@@ -6,6 +6,10 @@ kernel:
   archive_format: tar.xz
 
 package_list:
+  - gcc
+  - glibc-devel
+  - kernel-headers
+  - kernel-devel
   - ncurses-devel
   - bison
   - flex
