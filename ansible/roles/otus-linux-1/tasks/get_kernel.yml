@@ -2,7 +2,7 @@
 
 - name: create temp dir
   file:
-    path: /tmp/kernel
+    path: "/tmp/{{ kernel_version }}"
     state: directory
 
 #- name: download kernel
@@ -11,8 +11,8 @@
 #    dest: /tmp/kernel/
 #    mode: 0755
 
-- name: get kernel
+- name: unpack kernel
   unarchive:
-      src: "{{ kernel_link }}/{{ kernel_version }}"
-      dest: /tmp/kernel/
-      remote_src: yes
+    src: "{{ kernel_mirror }}/{{ kernel_version }}.{{ kernel_archive_format }}"
+    dest: "/tmp/{{ kernel_version }}/"
+    remote_src: yes
