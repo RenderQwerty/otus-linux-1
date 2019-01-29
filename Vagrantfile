@@ -51,7 +51,7 @@ config.vm.define boxname do |box|
         box.vm.network "private_network", ip: boxconfig[:ip_addr]
         box.vm.synced_folder ".", "/vagrant", mount_options: ["dmode=775,fmode=664"], type: "virtualbox"
         box.vm.provider :virtualbox do |vb|
-                vb.customize ["modifyvm", :id, "--memory", "1024"]
+                vb.customize ["modifyvm", :id, "--memory", "1024", "--cpus", "4", "--cpuexecutioncap", "70"]
                 needsController = false
                 boxconfig[:disks].each do |dname, dconf|
                         unless File.exist?(dconf[:dfile])
