@@ -1,0 +1,18 @@
+---
+
+- name: create temp dir
+  file:
+    path: /tmp/kernel
+    state: directory
+
+#- name: download kernel
+#  get_url:
+#    url: "{{ kernel_link }}/{{ kernel_version }}"
+#    dest: /tmp/kernel/
+#    mode: 0755
+
+- name: get kernel
+  unarchive:
+      src: "{{ kernel_link }}/{{ kernel_version }}"
+      dest: /tmp/kernel/
+      remote_src: yes
