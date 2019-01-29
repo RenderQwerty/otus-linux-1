@@ -14,5 +14,5 @@
 - name: unpack kernel
   unarchive:
     src: "{{ kernel_mirror }}/{{ kernel_version }}.{{ kernel_archive_format }}"
-    dest: "/tmp/{{ kernel_version }}/"
+    dest: "/tmp/"
     remote_src: yes
