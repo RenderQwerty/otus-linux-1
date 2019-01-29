@@ -9,3 +9,6 @@ package_list:
   - ncurses-devel
   - bison
   - flex
+  - elfutils-libelf-devel
+  - bc
+  - openssl-devel
