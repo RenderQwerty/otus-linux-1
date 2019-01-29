@@ -1,6 +1,6 @@
 ---
 
-
-kernel_mirror: https://cdn.kernel.org/pub/linux/kernel/v4.x/
-kernel_version: linux-4.20.5
-kernel_archive_format: tar.xz
+kernel:
+  mirror: https://cdn.kernel.org/pub/linux/kernel/v4.x/
+  version: linux-4.20.5
+  archive_format: tar.xz
