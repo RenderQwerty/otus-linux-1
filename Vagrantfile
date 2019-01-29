@@ -79,7 +79,7 @@ Vagrant.configure("2") do |config|
             SHELL
         box.vm.provision "ansible_local" do |ansible|
                 ansible.become = true
-                ansible.playbook = "ansible/playbooks/site.yml"
+                ansible.playbook = "ansible/site.yml"
                 ansible.galaxy_role_file = "ansible/roles/requirements.yml"
                 ansible.galaxy_roles_path = "/etc/ansible/roles"
                 ansible.galaxy_command = "sudo ansible-galaxy install --role-file=%{role_file} --roles-path=%{roles_path}"

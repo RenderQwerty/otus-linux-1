@@ -13,3 +13,4 @@
   roles:
     - geerlingguy.ntp
     - gantsign.oh-my-zsh 
+    - otus-linux-1
