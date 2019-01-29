@@ -1,0 +1,15 @@
+---
+
+- name: run the playbook tasks on the localhost
+  hosts: localhost
+  connection: local
+  become: yes
+  vars:
+    username: jaels
+    ntp_timezone: Europe/Kiev
+    users:
+      - username: "{{ username }}"
+
+  roles:
+    - geerlingguy.ntp
+    - gantsign.oh-my-zsh 
