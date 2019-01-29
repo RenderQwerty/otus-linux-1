@@ -5,7 +5,7 @@
   connection: local
   become: yes
   vars:
-    username: jaels
+    username: root
     ntp_timezone: Europe/Kiev
     users:
       - username: "{{ username }}"
