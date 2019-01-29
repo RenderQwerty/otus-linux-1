@@ -16,3 +16,4 @@
     src: "{{ kernel.mirror }}/{{ kernel.version }}.{{ kernel.archive_format }}"
     dest: "/tmp/"
     remote_src: yes
+    creates: "/tmp/{{ kernel.version }}"
