@@ -1,0 +1,34 @@
+---
+
+- name: unpack kernel
+  unarchive:
+    src: "{{ kernel.mirror }}/{{ kernel.version }}.{{ kernel.archive_format }}"
+    dest: "/tmp/"
+    remote_src: yes
+    creates: "/tmp/{{ kernel.version }}"
+
+- name: copy kernel config
+  copy:
+    src: .config
+    dest: "/tmp/{{ kernel.version }}"
+
+- name: compile kernel
+  make:
+    chdir: "/tmp/{{ kernel.version }}"
+    params:
+      NUM_THREADS: 4
+
+- name: compile modules
+  make:
+    chdir: "/tmp/{{ kernel.version }}"
+    target: modules
+    params:
+      NUM_THREADS: 4
+
+- name: install kernel & modules
+  make:
+    chdir: "/tmp/{{ kernel.version }}"
+    target: " {{ item }}"
+  loop:
+    - modules_install
+    - install

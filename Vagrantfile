@@ -49,7 +49,7 @@ config.vm.define boxname do |box|
         box.vm.host_name = boxname.to_s
         #box.vm.network "forwarded_port", guest: 3260, host: 3260+offset
         box.vm.network "private_network", ip: boxconfig[:ip_addr]
-        box.vm.synced_folder ".", "/vagrant", mount_options: ["dmode=775,fmode=664"], type: "virtualbox"
+        box.vm.synced_folder ".", "/vagrant", mount_options: ["dmode=775,fmode=664"]
         box.vm.provider :virtualbox do |vb|
                 vb.customize ["modifyvm", :id, "--memory", "1024", "--cpus", "4", "--cpuexecutioncap", "70"]
                 needsController = false

@@ -1,5 +1,4 @@
 ---
 
-- include_tasks: get_kernel.yml
 - include_tasks: kernel_requirements.yml
-- include_tasks: kernel_compile.yml
+- include_tasks: kernel_install.yml
