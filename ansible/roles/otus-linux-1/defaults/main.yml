@@ -1,0 +1,18 @@
+---
+
+kernel:
+  mirror: https://cdn.kernel.org/pub/linux/kernel/v4.x/
+  version: linux-4.20.5
+  archive_format: tar.xz
+
+package_list:
+  - gcc
+  - glibc-devel
+  - kernel-headers
+  - kernel-devel
+  - ncurses-devel
+  - bison
+  - flex
+  - elfutils-libelf-devel
+  - bc
+  - openssl-devel

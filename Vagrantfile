@@ -1,6 +1,14 @@
 # -*- mode: ruby -*-
 # vim: set ft=ruby :
 
+bootstrap = <<SCRIPT
+  mkdir -p ~root/.ssh
+  cp ~vagrant/.ssh/auth* ~root/.ssh
+  curl --silent https://github.com/renderqwerty.keys >> /root/.ssh/authorized_keys
+  su -c "printf 'sudo su\n' >> .bash_profile" -s /bin/sh vagrant
+  yum install -y mdadm smartmontools hdparm gdisk
+SCRIPT
+
 MACHINES = {
   :otuslinux => {
         :box_name => "centos/7",
@@ -28,48 +36,47 @@ MACHINES = {
                 }
 
 	}
-
-		
   },
 }
 
 Vagrant.configure("2") do |config|
 
-  MACHINES.each do |boxname, boxconfig|
+MACHINES.each do |boxname, boxconfig|
 
-      config.vm.define boxname do |box|
+config.vm.define boxname do |box|
 
-          box.vm.box = boxconfig[:box_name]
-          box.vm.host_name = boxname.to_s
+        box.vm.box = boxconfig[:box_name]
+        box.vm.host_name = boxname.to_s
+        #box.vm.network "forwarded_port", guest: 3260, host: 3260+offset
+        box.vm.network "private_network", ip: boxconfig[:ip_addr]
+        box.vm.synced_folder ".", "/vagrant", mount_options: ["dmode=775,fmode=664"]
+        box.vm.provider :virtualbox do |vb|
+                vb.customize ["modifyvm", :id, "--memory", "1024", "--cpus", "4", "--cpuexecutioncap", "70"]
+                needsController = false
+                boxconfig[:disks].each do |dname, dconf|
+                        unless File.exist?(dconf[:dfile])
+                        vb.customize ['createhd', '--filename', dconf[:dfile], '--variant', 'Fixed', '--size', dconf[:size]]
+                        needsController =  true
+                        end
 
-          #box.vm.network "forwarded_port", guest: 3260, host: 3260+offset
-
-          box.vm.network "private_network", ip: boxconfig[:ip_addr]
-
-          box.vm.provider :virtualbox do |vb|
-            	  vb.customize ["modifyvm", :id, "--memory", "1024"]
-                  needsController = false
-		  boxconfig[:disks].each do |dname, dconf|
-			  unless File.exist?(dconf[:dfile])
-				vb.customize ['createhd', '--filename', dconf[:dfile], '--variant', 'Fixed', '--size', dconf[:size]]
-                                needsController =  true
-                          end
-
-		  end
-                  if needsController == true
-                     vb.customize ["storagectl", :id, "--name", "SATA", "--add", "sata" ]
-                     boxconfig[:disks].each do |dname, dconf|
-                         vb.customize ['storageattach', :id,  '--storagectl', 'SATA', '--port', dconf[:port], '--device', 0, '--type', 'hdd', '--medium', dconf[:dfile]]
-                     end
-                  end
-          end
- 	  box.vm.provision "shell", inline: <<-SHELL
-	      mkdir -p ~root/.ssh
-              cp ~vagrant/.ssh/auth* ~root/.ssh
-	      yum install -y mdadm smartmontools hdparm gdisk
-  	  SHELL
-
+                end
+                if needsController == true
+                vb.customize ["storagectl", :id, "--name", "SATA", "--add", "sata" ]
+                boxconfig[:disks].each do |dname, dconf|
+                        vb.customize ['storageattach', :id,  '--storagectl', 'SATA', '--port', dconf[:port], '--device', 0, '--type', 'hdd', '--medium', dconf[:dfile]]
+                end
+                end
+        end
+        box.vm.provision "shell", inline: "#{bootstrap}", privileged: true
+        box.vm.provision "ansible_guest", type: "ansible_local" do |ansible_guest|
+                ansible_guest.become = true
+                ansible_guest.playbook = "ansible/site.yml"
+                ansible_guest.galaxy_role_file = "ansible/roles/requirements.yml"
+                ansible_guest.galaxy_roles_path = "/etc/ansible/roles"
+                ansible_guest.galaxy_command = "sudo ansible-galaxy install --role-file=%{role_file} --roles-path=%{roles_path}"
+                ansible_guest.limit = 'all,localhost'
+                ansible_guest.verbose = true
+        end
       end
   end
 end
-

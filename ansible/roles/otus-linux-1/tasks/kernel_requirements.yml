@@ -1,0 +1,11 @@
+---
+
+- name: Install build tools
+  yum:
+    name: "@Development tools"
+    state: present
+
+- name: install packages required for kernel compilation
+  yum:
+    name: "{{ package_list }}"
+    state: present
