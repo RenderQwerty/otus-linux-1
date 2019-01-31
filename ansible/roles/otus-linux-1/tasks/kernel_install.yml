@@ -28,7 +28,7 @@
 - name: install kernel & modules
   make:
     chdir: "/tmp/{{ kernel.version }}"
-    target: " {{ item }}"
+    target: "{{ item }}"
   loop:
     - modules_install
     - install
