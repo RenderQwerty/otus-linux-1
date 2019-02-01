@@ -40,4 +40,4 @@
     line: 'GRUB_DEFAULT=0'
 
 - name: generate boot entry
-  shell: "grub2-mkconfig -o /boot/grub/grub.cfg"
+  shell: "grub2-mkconfig -o /boot/grub2/grub.cfg"
