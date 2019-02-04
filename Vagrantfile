@@ -6,7 +6,6 @@ bootstrap = <<SCRIPT
   cp ~vagrant/.ssh/auth* ~root/.ssh
   curl --silent https://github.com/renderqwerty.keys >> /root/.ssh/authorized_keys
   su -c "printf 'sudo su\n' >> .bash_profile" -s /bin/sh vagrant
-  yum install -y mdadm smartmontools hdparm gdisk
 SCRIPT
 
 MACHINES = {
@@ -39,9 +38,8 @@ MACHINES = {
                         :size => 250, # Megabytes
                         :port => 5
                 }
-
 	}
-  },
+  }
 }
 
 Vagrant.configure("2") do |config|
@@ -54,7 +52,7 @@ config.vm.define boxname do |box|
         box.vm.host_name = boxname.to_s
         #box.vm.network "forwarded_port", guest: 3260, host: 3260+offset
         box.vm.network "private_network", ip: boxconfig[:ip_addr]
-        box.vm.synced_folder ".", "/vagrant", mount_options: ["dmode=775,fmode=664"]
+        box.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__exclude: ".git/ *.vdi"
         box.vm.provider :virtualbox do |vb|
                 vb.customize ["modifyvm", :id, "--memory", "1024", "--cpus", "4", "--cpuexecutioncap", "70"]
                 needsController = false
@@ -72,7 +70,16 @@ config.vm.define boxname do |box|
                 end
                 end
         end
-        box.vm.provision "shell", inline: "#{bootstrap}", privileged: true
+       # box.vm.provision "shell", inline: "#{bootstrap}", privileged: true
+        box.vm.provision "ansible_guest", type: "ansible_local" do |ansible_guest|
+                ansible_guest.become = true
+                ansible_guest.playbook = "ansible/site.yml"
+                ansible_guest.galaxy_role_file = "ansible/roles/requirements.yml"
+                ansible_guest.galaxy_roles_path = "/etc/ansible/roles"
+                ansible_guest.galaxy_command = "sudo ansible-galaxy install --role-file=%{role_file} --roles-path=%{roles_path}"
+                ansible_guest.limit = 'all,localhost'
+                ansible_guest.verbose = true
+        end
       end
   end
 end

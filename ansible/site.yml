@@ -11,5 +11,6 @@
       - username: "{{ username }}"
 
   roles:
+    - customization
     - geerlingguy.ntp
-    - otus-linux-1
+#    - otus-linux-1

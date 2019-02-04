@@ -1,0 +1,11 @@
+---
+# defaults file for customization
+
+install_list:
+  - vim
+  - lynx
+#  - fish
+  - mdadm
+  - smartmontools
+  - hdparm
+  - gdisk
