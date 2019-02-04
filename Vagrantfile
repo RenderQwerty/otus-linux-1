@@ -68,15 +68,6 @@ config.vm.define boxname do |box|
                 end
         end
         box.vm.provision "shell", inline: "#{bootstrap}", privileged: true
-        box.vm.provision "ansible_guest", type: "ansible_local" do |ansible_guest|
-                ansible_guest.become = true
-                ansible_guest.playbook = "ansible/site.yml"
-                ansible_guest.galaxy_role_file = "ansible/roles/requirements.yml"
-                ansible_guest.galaxy_roles_path = "/etc/ansible/roles"
-                ansible_guest.galaxy_command = "sudo ansible-galaxy install --role-file=%{role_file} --roles-path=%{roles_path}"
-                ansible_guest.limit = 'all,localhost'
-                ansible_guest.verbose = true
-        end
       end
   end
 end
