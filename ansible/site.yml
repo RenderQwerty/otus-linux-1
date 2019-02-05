@@ -12,5 +12,5 @@
 
   roles:
     - customization
-    - geerlingguy.ntp
+#    - geerlingguy.ntp
 #    - otus-linux-1
