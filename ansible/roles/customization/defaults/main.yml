@@ -3,7 +3,6 @@
 
 install_list:
   - vim
-  - lynx
   - zsh
   - mdadm
   - smartmontools

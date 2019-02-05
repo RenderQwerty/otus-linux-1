@@ -1,13 +1,6 @@
 # -*- mode: ruby -*-
 # vim: set ft=ruby :
 
-bootstrap = <<SCRIPT
-  mkdir -p ~root/.ssh
-  cp ~vagrant/.ssh/auth* ~root/.ssh
-  curl --silent https://github.com/renderqwerty.keys >> /root/.ssh/authorized_keys
-  su -c "printf 'sudo su\n' >> .bash_profile" -s /bin/sh vagrant
-SCRIPT
-
 MACHINES = {
   :otuslinux => {
         :box_name => "centos/7",
@@ -70,7 +63,6 @@ config.vm.define boxname do |box|
                 end
                 end
         end
-       # box.vm.provision "shell", inline: "#{bootstrap}", privileged: true
         box.vm.provision "ansible_guest", type: "ansible_local" do |ansible_guest|
                 ansible_guest.become = true
                 ansible_guest.playbook = "ansible/site.yml"
