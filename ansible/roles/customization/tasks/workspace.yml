@@ -1,10 +1,10 @@
 ---
 
 
-#- name: config user parameters
-#  user:
-#    name: "{{ username }}"
-#    shell: /usr/bin/fish
+- name: config user parameters
+  user:
+    name: "{{ username }}"
+    shell: /usr/bin/zsh
 
 - name: create .ssh dir
   file:

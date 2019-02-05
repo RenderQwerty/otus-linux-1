@@ -1,8 +1,0 @@
----
-
-- name: add fish shell repo
-  yum_repository:
-    name: fish
-    description: fish shell
-    baseurl: http://download.opensuse.org/repositories/shells:/fish:/release:/3/RedHat_RHEL-6/
-    gpgcheck: no
