@@ -36,6 +36,9 @@ MACHINES = {
 }
 
 Vagrant.configure("2") do |config|
+        if Vagrant.has_plugin?("vagrant-vbguest")
+                config.vbguest.auto_update = false
+        end
 
 MACHINES.each do |boxname, boxconfig|
 
@@ -68,10 +71,13 @@ config.vm.define boxname do |box|
                 ansible_guest.playbook = "ansible/site.yml"
                 ansible_guest.galaxy_role_file = "ansible/roles/requirements.yml"
                 ansible_guest.galaxy_roles_path = "/etc/ansible/roles"
-                ansible_guest.galaxy_command = "sudo ansible-galaxy install --role-file=%{role_file} --roles-path=%{roles_path}"
+                #ansible_guest.galaxy_command = "sudo ansible-galaxy install --role-file=%{role_file} --roles-path=%{roles_path}"
                 ansible_guest.limit = 'all,localhost'
                 ansible_guest.verbose = true
         end
+        box.vm.provision "raid_array", type: "shell", path: "raid/create_raid_array.sh"
+        box.vm.provision "unit_upload", type: "file", source: "raid/raid.mount", destination: "/tmp/raid.mount"
+        box.vm.provision "systemd_unit", type: "shell", path: "raid/create_systemd_unit.sh"
       end
   end
 end

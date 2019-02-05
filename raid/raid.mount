@@ -1,0 +1,11 @@
+[Unit]
+Description=Additional drive
+
+[Mount]
+What=/dev/md0p1
+Where=/raid
+Type=ext4
+Options=defaults
+
+[Install]
+WantedBy=multi-user.target
