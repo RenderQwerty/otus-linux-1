@@ -78,6 +78,7 @@ config.vm.define boxname do |box|
         box.vm.provision "raid_array", type: "shell", path: "raid/create_raid_array.sh"
         box.vm.provision "unit_upload", type: "file", source: "raid/raid.mount", destination: "/tmp/raid.mount"
         box.vm.provision "systemd_unit", type: "shell", path: "raid/create_systemd_unit.sh"
+        box.vm.provision "show_result", type: "shell", path: "raid/check.sh"
       end
   end
 end
