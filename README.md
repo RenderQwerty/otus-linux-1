@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## Task: linux-2 (raid)
+
+### Added
+
+1. Добавлены [shell и file provisioner'ы](raid) для автосборки массива raid-5
+
+
 ## Task: linux-1 (kernel)
 
 ### Added
