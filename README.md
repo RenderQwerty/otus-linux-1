@@ -1,10 +1,10 @@
 # Список заданий
 
-[Linux-1: kernel](#Task:-linux-1-kernel)
+[Linux-1: kernel](#linux-1,-kernel)
 
-[Linux-2: raid](#Task:-linux-2-raid)
+[Linux-2: raid](#linux-2,-raid)
 
-## Task: linux-2 (raid)
+## Linux 2, raid
 
 ### Added
 
@@ -30,7 +30,7 @@
 
     Вторая часть (после перезагрузки в degraged raid) загрузилась корректно и доступен просмотр через веб - <https://asciinema.org/a/226756>
 
-## Task: linux-1 (kernel)
+## Linux 1, kernel
 
 ### Added
 
