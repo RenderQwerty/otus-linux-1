@@ -1,8 +1,8 @@
-# Changelog
+# Список заданий
 
-All notable changes to this project will be documented in this file.
+[Linux-1: kernel](#Task:-linux-1-kernel)
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+[Linux-2: raid](#Task:-linux-2-raid)
 
 ## Task: linux-2 (raid)
 
