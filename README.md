@@ -45,3 +45,9 @@
 #### Как проверить
 
 Выполнить `vagrant up` и подождать. Долго подождать... После завершения работы провижинера нужно зайти в VM и выполнить перезагрузку, для того чтобы загрузиться в новое ядро. Я не стал вызывать модуль ансибла `reboot`, т.к. наверняка vagrant бы посчитал, что что-то пошло не так, если неожиданно бы потерял соединение с VM. После загрузки посмотреть используемое ядро командой `uname -r`
+
+## Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
