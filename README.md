@@ -21,7 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 2. **Перенос работающей системы с одним диском на RAID 1**
 
-    Схема разметки до и после описана в [отдельном README](docs\move_to_raid.md)
+    Схема разметки до и после процесса переноса описана в [отдельном README](docs\move_to_raid.md)
 
     **Как проверить?**
     Процесс переноса можно посмотреть, установив утилиту [asciinema](https://asciinema.org/)
