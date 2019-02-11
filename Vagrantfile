@@ -1,5 +1,6 @@
 # -*- mode: ruby -*-
 # vim: set ft=ruby :
+home = ENV['HOME']
 
 MACHINES = {
   :otuslinux => {
@@ -7,27 +8,27 @@ MACHINES = {
         :ip_addr => '192.168.11.101',
 	:disks => {
 		:sata1 => {
-			:dfile => './sata1.vdi',
+			:dfile => home + '/VirtualBox VMs/sata1.vdi',
 			:size => 250,
 			:port => 1
 		},
 		:sata2 => {
-                        :dfile => './sata2.vdi',
+                        :dfile => home + '/VirtualBox VMs/sata2.vdi',
                         :size => 250, # Megabytes
 			:port => 2
 		},
                 :sata3 => {
-                        :dfile => './sata3.vdi',
+                        :dfile => home + '/VirtualBox VMs/sata3.vdi',
                         :size => 250,
                         :port => 3
                 },
                 :sata4 => {
-                        :dfile => './sata4.vdi',
+                        :dfile => home + '/VirtualBox VMs/sata4.vdi',
                         :size => 250, # Megabytes
                         :port => 4
                 },
                 :sata5 => {
-                        :dfile => './sata5.vdi',
+                        :dfile => home + '/VirtualBox VMs/sata5.vdi',
                         :size => 250, # Megabytes
                         :port => 5
                 }
@@ -48,7 +49,7 @@ config.vm.define boxname do |box|
         box.vm.host_name = boxname.to_s
         #box.vm.network "forwarded_port", guest: 3260, host: 3260+offset
         box.vm.network "private_network", ip: boxconfig[:ip_addr]
-        box.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__exclude: ".git/ *.vdi"
+        box.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__exclude: ['.git*', '*.vdi'], rsync__verbose: "true"
         box.vm.provider :virtualbox do |vb|
                 vb.customize ["modifyvm", :id, "--memory", "1024", "--cpus", "4", "--cpuexecutioncap", "70"]
                 needsController = false
