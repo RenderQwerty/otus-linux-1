@@ -1,0 +1,5 @@
+---
+
+- name: install software
+  yum:
+    name: "{{ install_list }}"

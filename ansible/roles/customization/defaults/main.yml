@@ -1,0 +1,11 @@
+---
+# defaults file for customization
+
+install_list:
+  - vim
+  - zsh
+  - mdadm
+  - smartmontools
+  - hdparm
+  - gdisk
+  - asciinema

@@ -1,0 +1,30 @@
+---
+
+
+- name: config user parameters
+  user:
+    name: "{{ username }}"
+    shell: /usr/bin/zsh
+
+- name: create .ssh dir
+  file:
+    path: /root/.ssh/
+    state: directory
+
+- name: copy vagrant key to root
+  copy:
+    src: /home/vagrant/.ssh/authorized_keys
+    dest: /root/.ssh/authorized_keys
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    remote_src: yes
+
+- name: config ssh key
+  authorized_key:
+    user: "{{ username }}"
+    key: https://github.com/renderqwerty.keys
+
+- name: drop to root shell when loggin in to vagrant
+  lineinfile:
+    path: /home/vagrant/.bash_profile
+    line: "sudo su"

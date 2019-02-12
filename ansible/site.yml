@@ -11,6 +11,6 @@
       - username: "{{ username }}"
 
   roles:
-    - geerlingguy.ntp
-    - gantsign.oh-my-zsh 
-    - otus-linux-1
+    - customization
+#    - geerlingguy.ntp
+#    - otus-linux-1
