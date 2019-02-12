@@ -29,7 +29,7 @@
     Первая часть ( до перезагрузки) получилась слишком большой и не загружается на их сервер, поэтому воспроизвести можно локально с помощью команды: `asciinema play https://raw.githubusercontent.com/RenderQwerty/otus-linux-1/linux-2/docs/init_raid.json --speed 1.4`
 
     Вторая часть (после перезагрузки в degraged raid) загрузилась корректно
-    [![asciicast](https://asciinema.org/a/226756.svg)](https://asciinema.org/a/226756)
+    [![asciicast](https://asciinema.org/a/226756.svg?autoplay=1?speed=1.4)](https://asciinema.org/a/226756)
 
 ## Linux 1
 
